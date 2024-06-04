@@ -55,7 +55,7 @@ export default function Home() {
       <div className="beta mt-10">
         <p className="w-96 mx-auto text-center">
           Still the app is in beta! You can join the Waitlist to get notified
-          when it's ready for launch and be the first to try it out.
+          when it&apos;s ready for launch and be the first to try it out.
         </p>
         <Link href="/beta" className="flex justify-center mt-5">
           <Button variant="secondary">Join Beta</Button>
