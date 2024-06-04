@@ -5,6 +5,7 @@ import GetLink from "@/components/GetLink";
 import Version from "@/components/Version";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
+import AppSupport from "@/components/AppSupport";
 
 export default function Home() {
   return (
@@ -45,6 +46,14 @@ export default function Home() {
         </div>
       </div>
       <div className="hero-2">
+        <div className="icon-support mt-5">
+          <h1 className=" text-center mt-10 text-2xl font-bold">
+            Supported Services
+          </h1>
+          <div className="flex justify-center mt-5">
+            <AppSupport />
+          </div>
+        </div>
         <div className="title text-center mt-10 text-3xl font-bold">
           Features
         </div>
