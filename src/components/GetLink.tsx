@@ -30,7 +30,7 @@ const GetLink = () => {
     if (res.upload == null) {
       setValidLink(res.isValidURL);
     } else {
-      setURL(`http://localhost:3000/${res.upload._id}`);
+      setURL(`${process.env.SERVER_URL}/${res.upload._id}`);
       setValidLink(res.isValidURL);
       setIsVisible(true);
     }
