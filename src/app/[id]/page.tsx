@@ -30,7 +30,9 @@ const RedirectionPage = ({ params }: { params: { id: string } }) => {
         {link ? (
           // <Link href={link} passHref>
           // {/* <a target="_self" rel=" noopener noreferrer"> */}
-          <Button onClick={() => window.open(link, "_blank")}>Redirect</Button>
+          <Button onClick={() => (window.location.href = link)}>
+            Redirect
+          </Button>
         ) : (
           // </a>
           // </Link>
