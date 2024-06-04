@@ -18,6 +18,8 @@ import Confetti from "react-confetti";
 import { uploadData } from "@/actions/links.action";
 import { toast } from "sonner";
 
+const serverURL: string = "https://lemon-click.vercel.app";
+
 const GetLink = () => {
   const [link, setLink] = useState("");
   const [url, setURL] = useState("");
@@ -30,7 +32,7 @@ const GetLink = () => {
     if (res.upload == null) {
       setValidLink(res.isValidURL);
     } else {
-      setURL(`${process.env.SERVER_URL}/${res.upload._id}`);
+      setURL(`${serverURL}/${res.upload._id}`);
       setValidLink(res.isValidURL);
       setIsVisible(true);
     }
