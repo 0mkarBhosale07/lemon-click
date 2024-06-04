@@ -15,7 +15,7 @@ import {
 import Confetti from "react-confetti";
 
 // import { uploadTestData } from "@/actions/test.action";
-import { uploadData } from "@/actions/links.action";
+import { uploadData } from "@/actions/test.action";
 import { toast } from "sonner";
 
 const serverURL: string = "https://lemon-click.vercel.app";

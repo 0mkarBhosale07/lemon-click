@@ -1,7 +1,6 @@
 "use server";
 import Links from "@/models/links.model";
 import { connectToDatabase } from "@/db";
-import InApp from "detect-inapp";
 
 export const getData = async () => {
   connectToDatabase();
@@ -22,13 +21,6 @@ export const getLink = async (params: any) => {
 };
 
 export const uploadData = async (params: any) => {
-  const useragent = navigator.userAgent || navigator.vendor;
-  const inapp = new InApp(useragent);
-  let browser = inapp.browser;
-  let os = getMobileOperatingSystem();
-  let desktop = inapp.isDesktop;
-  let mobile = inapp.isMobile;
-
   connectToDatabase();
   const isValidURL = (link: string) => {
     try {
@@ -39,23 +31,72 @@ export const uploadData = async (params: any) => {
     }
   };
 
-  const { link, redirection_link, userId } = params;
-  const devicetype = desktop ? "Desktop" : mobile ? "Mobile" : "none";
-  const ostype = os;
-  const BrowserType = browser;
-
+  const { link } = params;
   const checkURL = isValidURL(link);
+
+  const parseUrl = new URL(link);
+  const hostname = parseUrl.hostname;
+  const path = parseUrl.pathname + parseUrl.search;
+
+  const platformMappings: any = {
+    "youtube.com": {
+      androidIntentUrl: `intent://${hostname}${path}#Intent;scheme=https;package=com.google.android.youtube;end;`,
+      iosUrl: `youtube://${path}`,
+    },
+    "instagram.com": {
+      androidIntentUrl: `intent://${hostname}${path}#Intent;scheme=https;package=com.instagram.android;end;`,
+      iosUrl: `instagram://${path}`,
+    },
+    "twitter.com": {
+      androidIntentUrl: `intent://${hostname}${path}#Intent;scheme=https;package=com.twitter.android;end;`,
+      iosUrl: `twitter://${path}`,
+    },
+    "facebook.com": {
+      androidIntentUrl: `intent://${hostname}${path}#Intent;scheme=https;package=com.facebook.katana;end;`,
+      iosUrl: `fb://${path}`,
+    },
+    "open.spotify.com": {
+      androidIntentUrl: `intent://${hostname}${path}#Intent;scheme=https;package=com.spotify.music;end;`,
+      iosUrl: `spotify://${path}`,
+    },
+  };
+
+  const fallbackUrl = link;
+
+  const platform = Object.keys(platformMappings).find((key) =>
+    hostname.includes(key)
+  );
+  const androidIntentUrl = platform
+    ? platformMappings[platform].androidIntentUrl
+    : fallbackUrl;
+  const iosUrl = platform ? platformMappings[platform].iosUrl : fallbackUrl;
+  console.log({
+    parseUrl,
+    hostname,
+    path,
+    fallbackUrl,
+    platform,
+    androidIntentUrl,
+    iosUrl,
+  });
+  // platform: { type: String, required: true },
+  //   originalUrl: { type: String, required: true },
+  //   androidIntentUrl: { type: String },
+  //   iosUrl: { type: String },
+  //   fallbackUrl: { type: String, required: true },
+  // },
+
   const data = {
-    link,
-    redirection_link,
-    userId,
-    DeviceType: devicetype,
-    OsType: ostype,
-    BrowserType: BrowserType,
+    platform: platform,
+    originalUrl: link,
+    androidIntentUrl: androidIntentUrl,
+    iosUrl: iosUrl,
+    fallbackUrl: fallbackUrl,
   };
 
   if (checkURL) {
     const upload = await Links.create(data);
+
     console.log(upload._doc);
 
     return { upload: upload._doc, isValidURL: checkURL };

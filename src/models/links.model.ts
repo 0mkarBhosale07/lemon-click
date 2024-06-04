@@ -3,34 +3,11 @@ import mongoose, { Schema } from "mongoose";
 const linkSchema = new Schema(
   {
     //define schema
-    link: {
-      type: String,
-      requried: true,
-    },
-    redirection_link: {
-      type: String,
-      default: null,
-    },
-    clicks: {
-      type: Number,
-      default: 0,
-    },
-    userId: {
-      type: String,
-      default: null,
-    },
-    DeviceType: {
-      type: String,
-      default: null,
-    },
-    OsType: {
-      type: String,
-      default: null,
-    },
-    BrowserType: {
-      type: String,
-      default: null,
-    },
+    platform: { type: String, required: true },
+    originalUrl: { type: String, required: true },
+    androidIntentUrl: { type: String },
+    iosUrl: { type: String },
+    fallbackUrl: { type: String, required: true },
   },
   {
     timestamps: true,

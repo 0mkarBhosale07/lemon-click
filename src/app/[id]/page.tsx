@@ -7,12 +7,32 @@ import Link from "next/link";
 const RedirectionPage = ({ params }: { params: { id: string } }) => {
   const { id }: any = params;
   const [link, setLink] = useState<string | null>(null); // Set initial state to null
+  const [resData, setResData] = useState(null);
 
   useEffect(() => {
     const getData = async () => {
       try {
         const res = await getLink({ id });
+        console.log(res);
+
+        setResData(res);
         setLink(res.link);
+        if (/Android/i.test(window.navigator.userAgent)) {
+          console.log("Redirecting to Android intent URL");
+          window.location.href = res.androidIntentUrl;
+          setTimeout(() => {
+            window.location.href = res.fallbackUrl;
+          }, 1000);
+        } else if (/iPhone|iPad|iPod/i.test(window.navigator.userAgent)) {
+          console.log("Redirecting to iOS URL");
+          window.location.href = res.iosUrl;
+          setTimeout(() => {
+            window.location.href = res.fallbackUrl;
+          }, 1000);
+        } else {
+          console.log("Redirecting to fallback URL");
+          window.location.href = res.fallbackUrl;
+        }
       } catch (error) {
         console.error("Error fetching link:", error);
         // Handle error accordingly, maybe set an error state
