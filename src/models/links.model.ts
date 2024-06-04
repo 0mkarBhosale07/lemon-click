@@ -19,6 +19,18 @@ const linkSchema = new Schema(
       type: String,
       default: null,
     },
+    DeviceType: {
+      type: String,
+      default: null,
+    },
+    OsType: {
+      type: String,
+      default: null,
+    },
+    BrowserType: {
+      type: String,
+      default: null,
+    },
   },
   {
     timestamps: true,
