@@ -72,8 +72,8 @@ export const uploadData = async (params: any) => {
       iosUrl: `hotstar://${path}`,
     },
     "youtu.be": {
-      androidIntentUrl: `intent://${hostname}${path}#Intent;scheme=https;package=com.google.android.youtube;end;`,
-      iosUrl: `youtube://${path}`,
+      androidIntentUrl: `intent://{hostname}{path}#Intent;scheme=https;package=com.google.android.youtube;end;`,
+      iosUrl: `youtube://{path}`,
     },
     "vercel.com": {
       androidIntentUrl: `intent://${hostname}${path}#Intent;scheme=https;package=com.vercel;end;`,
@@ -92,8 +92,12 @@ export const uploadData = async (params: any) => {
   );
   const androidIntentUrl = platform
     ? platformMappings[platform].androidIntentUrl
-    : fallbackUrl;
-  const iosUrl = platform ? platformMappings[platform].iosUrl : fallbackUrl;
+        .replace("{hostname}", hostname)
+        .replace("{path}", path)
+    : link;
+  const iosUrl = platform
+    ? platformMappings[platform].iosUrl.replace("{path}", path)
+    : link;
   console.log({
     parseUrl,
     hostname,
