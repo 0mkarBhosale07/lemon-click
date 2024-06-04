@@ -59,6 +59,30 @@ export const uploadData = async (params: any) => {
       androidIntentUrl: `intent://${hostname}${path}#Intent;scheme=https;package=com.spotify.music;end;`,
       iosUrl: `spotify://${path}`,
     },
+    "netflix.com": {
+      androidIntentUrl: `intent://${hostname}${path}#Intent;scheme=https;package=com.netflix.mediaclient;end;`,
+      iosUrl: `nflx://${path}`,
+    },
+    "disneyplus.com": {
+      androidIntentUrl: `intent://${hostname}${path}#Intent;scheme=https;package=com.disney.disneyplus;end;`,
+      iosUrl: `disneyplus://${path}`,
+    },
+    "hotstar.com": {
+      androidIntentUrl: `intent://${hostname}${path}#Intent;scheme=https;package=in.startv.hotstar;end;`,
+      iosUrl: `hotstar://${path}`,
+    },
+    "youtu.be": {
+      androidIntentUrl: `intent://${hostname}${path}#Intent;scheme=https;package=com.google.android.youtube;end;`,
+      iosUrl: `youtube://${path}`,
+    },
+    "vercel.com": {
+      androidIntentUrl: `intent://${hostname}${path}#Intent;scheme=https;package=com.vercel;end;`,
+      iosUrl: `vercel://${path}`,
+    },
+    "github.com": {
+      androidIntentUrl: `intent://${hostname}${path}#Intent;scheme=https;package=com.github.android;end;`,
+      iosUrl: `github://${path}`,
+    },
   };
 
   const fallbackUrl = link;
