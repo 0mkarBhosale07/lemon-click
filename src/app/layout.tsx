@@ -3,6 +3,7 @@ import { Inter, Oswald } from "next/font/google";
 import "./globals.css";
 import { Toaster } from "@/components/ui/sonner";
 import { ThemeProvider } from "@/components/theme-provider";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 
 const inter = Inter({ subsets: ["latin"] });
 const oswald = Oswald({ subsets: ["latin"] });
@@ -28,8 +29,8 @@ export default function RootLayout({
         >
           {children}
         </ThemeProvider>
-
         <Toaster />
+        <SpeedInsights />
       </body>
     </html>
   );
