@@ -54,7 +54,9 @@ const RedirectionPage = ({ params }: { params: { id: string } }) => {
             </a>
           </Link>
         ) : (
-          <p>Loading...</p> // Show loading state or a message
+          <div className="flex justify-center items-center h-24">
+            <div className="w-8 h-8 border-4 border-t-4 border-t-blue-500 border-blue-200 rounded-full animate-spin"></div>
+          </div> // Show loading state or a message
         )}
       </div>
     </div>

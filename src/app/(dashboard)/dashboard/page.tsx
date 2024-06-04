@@ -15,6 +15,10 @@ const page = async () => {
       <nav className="flex justify-center mt-2">
         <DashboardNavigationMenu />
       </nav>
+      <div className="mt-20 text-center">
+        <h1>Beta version se aur kya expectations hai bhai!!! 😂😅</h1>
+        <h1>Rooling Out Soon!!</h1>
+      </div>
     </div>
   );
 };

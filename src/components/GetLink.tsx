@@ -11,11 +11,8 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-// import Confetti from "./Confetti";
 import Confetti from "react-confetti";
-
-// import { uploadTestData } from "@/actions/test.action";
-import { uploadData } from "@/actions/test.action";
+import { uploadData } from "@/actions/links.action";
 import { toast } from "sonner";
 
 const serverURL: string = "https://lemonclick.vercel.app";
@@ -25,18 +22,28 @@ const GetLink = () => {
   const [url, setURL] = useState("");
   const [validLink, setValidLink] = useState<boolean | undefined>(false);
   const [isVisible, setIsVisible] = useState<boolean | undefined>(false);
+  const [loading, setLoading] = useState(false);
 
   const handelUpload = async () => {
-    const res = await uploadData({ link });
+    setLoading(true);
+    try {
+      const res = await uploadData({ link });
 
-    if (res.upload == null) {
-      setValidLink(res.isValidURL);
-    } else {
-      setURL(`${serverURL}/${res.upload._id}`);
-      setValidLink(res.isValidURL);
-      setIsVisible(true);
+      if (res.upload == null) {
+        setValidLink(res.isValidURL);
+      } else {
+        setURL(`${serverURL}/${res.upload._id}`);
+        setValidLink(res.isValidURL);
+        setIsVisible(true);
+      }
+    } catch (error) {
+      console.error("Upload failed:", error);
+      toast("Upload failed, please try again.");
+    } finally {
+      setLoading(false);
     }
   };
+
   return (
     <div className="flex w-full max-w-sm items-center space-x-2">
       <Input
@@ -49,7 +56,7 @@ const GetLink = () => {
       <Dialog>
         <DialogTrigger
           onClick={handelUpload}
-          className="bg-gradient-to-r from-blue-600 px-3 py-2 rounded-lg  to-indigo-400 flex items-center text-white gap-3 font-bold hover:from-indigo-400 hover:to-blue-600 transition-all duration-300"
+          className="bg-gradient-to-r from-blue-600 px-3 py-2 rounded-lg to-indigo-400 flex items-center text-white gap-3 font-bold hover:from-indigo-400 hover:to-blue-600 transition-all duration-300"
         >
           <FaRocket /> Go
         </DialogTrigger>
@@ -61,7 +68,13 @@ const GetLink = () => {
           </DialogContent>
         ) : (
           <div>
-            {validLink ? (
+            {loading ? (
+              <DialogContent>
+                <div className="flex justify-center items-center h-24">
+                  <div className="w-8 h-8 border-4 border-t-4 border-t-blue-500 border-blue-200 rounded-full animate-spin"></div>
+                </div>
+              </DialogContent>
+            ) : validLink ? (
               <DialogContent>
                 {isVisible && <Confetti width={500} />}
                 <DialogHeader>
@@ -69,7 +82,7 @@ const GetLink = () => {
                     Copy and share the following link to your audience!
                   </DialogTitle>
                   <DialogDescription>
-                    You can only copy this link dialog once, insted create
+                    You can only copy this link dialog once, instead create an
                     account to get your redirected links
                   </DialogDescription>
                 </DialogHeader>
