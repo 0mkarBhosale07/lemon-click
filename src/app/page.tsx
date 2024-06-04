@@ -8,7 +8,7 @@ import { Button } from "@/components/ui/button";
 
 export default function Home() {
   return (
-    <main className="">
+    <main className="lg:px-10 px-2">
       <Navbar />
       <div className="version mt-5 flex justify-center lg:justify-start">
         <Version />
