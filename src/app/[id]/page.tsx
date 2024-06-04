@@ -28,12 +28,12 @@ const RedirectionPage = ({ params }: { params: { id: string } }) => {
       </h1>
       <div className="btn flex justify-center mt-10">
         {link ? (
-          <Link href={link} passHref>
-            <a target="_self" rel=" noopener noreferrer">
-              <Button>Redirect</Button>
-            </a>
-          </Link>
+          // <Link href={link} passHref>
+          // {/* <a target="_self" rel=" noopener noreferrer"> */}
+          <Button onClick={() => window.open(link, "_blank")}>Redirect</Button>
         ) : (
+          // </a>
+          // </Link>
           <p>Loading...</p> // Show loading state or a message
         )}
       </div>
