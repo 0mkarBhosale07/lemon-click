@@ -70,24 +70,18 @@ export const uploadData = async (params: any) => {
     ? platformMappings[platform].androidIntentUrl
     : fallbackUrl;
   const iosUrl = platform ? platformMappings[platform].iosUrl : fallbackUrl;
-  console.log({
-    parseUrl,
-    hostname,
-    path,
-    fallbackUrl,
-    platform,
-    androidIntentUrl,
-    iosUrl,
-  });
-  // platform: { type: String, required: true },
-  //   originalUrl: { type: String, required: true },
-  //   androidIntentUrl: { type: String },
-  //   iosUrl: { type: String },
-  //   fallbackUrl: { type: String, required: true },
-  // },
+  // console.log({
+  //   parseUrl,
+  //   hostname,
+  //   path,
+  //   fallbackUrl,
+  //   platform,
+  //   androidIntentUrl,
+  //   iosUrl,
+  // });
 
   const data = {
-    platform: platform,
+    platform: platform || "web",
     originalUrl: link,
     androidIntentUrl: androidIntentUrl,
     iosUrl: iosUrl,
