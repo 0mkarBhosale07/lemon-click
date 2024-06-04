@@ -18,7 +18,7 @@ import Confetti from "react-confetti";
 import { uploadData } from "@/actions/test.action";
 import { toast } from "sonner";
 
-const serverURL: string = "https://lemon-click.vercel.app";
+const serverURL: string = "https://lemonclick.vercel.app";
 
 const GetLink = () => {
   const [link, setLink] = useState("");
