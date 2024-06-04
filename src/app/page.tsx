@@ -2,12 +2,18 @@ import { InfoCard } from "@/components/InfoCard";
 import Navbar from "@/components/Navbar";
 import { Omkar } from "@/components/Omkar";
 import GetLink from "@/components/GetLink";
+import Version from "@/components/Version";
+import Link from "next/link";
+import { Button } from "@/components/ui/button";
 
 export default function Home() {
   return (
-    <main className="lg:px-10 px-2 pt-5">
+    <main className="">
       <Navbar />
-      <div className="hero-1 text-center mt-16 md:mt-32">
+      <div className="version mt-5 flex justify-center lg:justify-start">
+        <Version />
+      </div>
+      <div className="hero-1 text-center mt-14 md:mt-32">
         <div>
           <h1 className="text-3xl lg:text-5xl font-bold bg-gradient-to-r from-blue-600  to-indigo-400 inline-block text-transparent bg-clip-text">
             Create Your
@@ -45,6 +51,15 @@ export default function Home() {
         <div className="bg-[#feeafa] mt-2 px-5 rounded-md lg:mx-40 py-5">
           <InfoCard />
         </div>
+      </div>
+      <div className="beta mt-10">
+        <p className="w-96 mx-auto text-center">
+          Still the app is in beta! You can join the Waitlist to get notified
+          when it's ready for launch and be the first to try it out.
+        </p>
+        <Link href="/beta" className="flex justify-center mt-5">
+          <Button variant="secondary">Join Beta</Button>
+        </Link>
       </div>
 
       <footer className="mt-10 flex items-center justify-center mb-2">

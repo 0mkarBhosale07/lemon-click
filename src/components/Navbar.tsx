@@ -5,7 +5,7 @@ import UserAvatar from "./UserProfile";
 
 const Navbar = () => {
   return (
-    <nav>
+    <nav className="lg:px-10 px-2 pt-5">
       <div className="main flex justify-around items-center">
         <Nav />
         <div className="flex items-center gap-1">
