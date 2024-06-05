@@ -17,12 +17,12 @@ const Count = () => {
   }, []);
 
   useEffect(() => {
-    const animateCount = (target, duration, setDisplayValue) => {
+    const animateCount = (target: any, duration: any, setDisplayValue: any) => {
       let start = 0;
       const stepTime = Math.abs(Math.floor(duration / target));
       const timer = setInterval(() => {
         start += 1;
-        setDisplayValue((prevState) => ({ ...prevState, links: start }));
+        setDisplayValue((prevState: any) => ({ ...prevState, links: start }));
         if (start === target) {
           clearInterval(timer);
         }
@@ -35,12 +35,12 @@ const Count = () => {
   }, [count.links]);
 
   useEffect(() => {
-    const animateCount = (target, duration, setDisplayValue) => {
+    const animateCount = (target: any, duration: any, setDisplayValue: any) => {
       let start = 0;
       const stepTime = Math.abs(Math.floor(duration / target));
       const timer = setInterval(() => {
         start += 1;
-        setDisplayValue((prevState) => ({ ...prevState, users: start }));
+        setDisplayValue((prevState: any) => ({ ...prevState, users: start }));
         if (start === target) {
           clearInterval(timer);
         }
