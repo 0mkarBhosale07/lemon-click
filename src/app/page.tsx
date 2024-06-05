@@ -6,6 +6,7 @@ import Version from "@/components/Version";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import AppSupport from "@/components/AppSupport";
+import Count from "@/components/Count";
 
 export default function Home() {
   return (
@@ -52,6 +53,9 @@ export default function Home() {
           </h1>
           <div className="flex justify-center mt-5">
             <AppSupport />
+          </div>
+          <div className="my-5">
+            <Count />
           </div>
         </div>
         <div className="title text-center mt-10 text-3xl font-bold">
