@@ -18,7 +18,7 @@ export const getBrandLink = async (params: any) => {
 
 export const uploadBrandedLink = async (params: any) => {
   connectToDatabase();
-  const session: Session | null = await auth();
+  const session: any | null = await auth();
   const { link, name } = params;
   const isValidURL = (link: string) => {
     try {

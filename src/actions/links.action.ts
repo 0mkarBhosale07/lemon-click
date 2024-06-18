@@ -34,7 +34,7 @@ export const getLink = async (params: any) => {
 
 export const uploadData = async (params: any) => {
   connectToDatabase();
-  const session = await auth();
+  const session: any | null = await auth();
   const { link } = params;
   const isValidURL = (link: string) => {
     try {
