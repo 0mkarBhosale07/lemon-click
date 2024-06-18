@@ -19,7 +19,7 @@ import { useRouter } from "next/navigation";
 
 const LinksTabel = () => {
   const [links, setLinks] = useState([]);
-  const [data, setData] = useState([]);
+  const [data, setData] = useState<any>([]);
   const [loading, setLoading] = useState(true);
   const router = useRouter();
 
