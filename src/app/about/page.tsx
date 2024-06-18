@@ -19,7 +19,7 @@ const AboutPage = () => {
             is to bridge the gap between content creators and their audiences by
             providing innovative tools that simplify content sharing and enhance
             user experience. We aim to ensure that your audience can
-            effortlessly engage with your content, whether it's liking,
+            effortlessly engage with your content, whether it &quot;s liking,
             commenting, or subscribing, without unnecessary redirections or
             sign-in hassles.
           </p>
@@ -42,9 +42,9 @@ const AboutPage = () => {
               1. Open in App Links:
             </h3>
             <p className="text-white leading-relaxed">
-              One of our standout features is the creation of "open in app"
-              links. These special links ensure that when your audience clicks
-              on a shared link from any social media platform, they are
+              One of our standout features is the creation of &quot;open in app
+              &quot; links. These special links ensure that when your audience
+              clicks on a shared link from any social media platform, they are
               redirected straight to the appropriate app, bypassing the default
               web browsers. This means no more lost viewers due to sign-in
               prompts or clunky web interfaces. Instead, your audience can
