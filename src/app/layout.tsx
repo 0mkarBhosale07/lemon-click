@@ -10,8 +10,17 @@ const inter = Inter({ subsets: ["latin"] });
 const oswald = Oswald({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Lemon Click",
-  description: "Create open in app link",
+  metadataBase: new URL("https://lemonclick.vercel.app"),
+  keywords: ["lemon", "click", "open in app link", "lemon click"],
+  title: {
+    default: "Lemon Click",
+    template: "%s | Lemon Click",
+  },
+  openGraph: {
+    description: "Create and share open in app links with ease",
+    siteName: "Lemon Click",
+    images: ["/lemonclick-share.png"],
+  },
 };
 
 export default function RootLayout({

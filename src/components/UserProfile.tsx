@@ -26,13 +26,17 @@ const UserAvatar = async () => {
           <div>
             <DropdownMenu>
               <DropdownMenuTrigger>
-                <Image
-                  src={session.user.image}
-                  alt={session.user.name}
-                  width={50}
-                  height={50}
-                  className="rounded-full cursor-pointer"
-                />
+                <div className="relative w-fit h-fit p-0.5 rounded-full bg-gradient-to-r from-[#007f5f] via-[#aacc00]  to-[#ffff3f]">
+                  <div className="bg-white rounded-full">
+                    <Image
+                      src={session.user.image}
+                      alt={session.user.name}
+                      width={50}
+                      height={50}
+                      className="rounded-full cursor-pointer"
+                    />
+                  </div>
+                </div>
               </DropdownMenuTrigger>
               <DropdownMenuContent>
                 <DropdownMenuLabel>{session.user.name}</DropdownMenuLabel>

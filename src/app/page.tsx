@@ -7,14 +7,14 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import AppSupport from "@/components/AppSupport";
 import Count from "@/components/Count";
+import { create } from "zustand";
+import Footer from "@/components/Footer";
 
 export default function Home() {
   return (
     <main className="lg:px-10 px-2">
       <Navbar />
-      <div className="version mt-5 flex justify-center lg:justify-start">
-        <Version />
-      </div>
+
       <div className="hero-1 text-center mt-14 md:mt-32">
         <div>
           <h1 className="text-3xl lg:text-5xl font-bold bg-gradient-to-r from-blue-600  to-indigo-400 inline-block text-transparent bg-clip-text">
@@ -58,27 +58,34 @@ export default function Home() {
             <Count />
           </div>
         </div>
-        <div className="title text-center mt-10 text-3xl font-bold">
+        <hr />
+        {/* <div className="title text-center mt-10 text-3xl font-bold">
           Features
         </div>
         <div className="bg-[#feeafa] mt-2 px-5 rounded-md lg:mx-40 py-5">
           <InfoCard />
-        </div>
+        </div> */}
       </div>
       <div className="beta mt-10">
         <p className="w-96 mx-auto text-center">
-          Still the app is in beta! You can join the Waitlist to get notified
-          when it&apos;s ready for launch and be the first to try it out.
+          Want to use features before release?
         </p>
         <Link href="/beta" className="flex justify-center mt-5">
           <Button variant="secondary">Join Beta</Button>
         </Link>
       </div>
+      {/* <div className="version my-5 flex justify-center">
+        
+      </div> */}
 
-      <footer className="mt-10 flex items-center justify-center mb-2">
+      <div className="my-2">
+        <Footer />
+      </div>
+
+      {/* <footer className=" flex items-center justify-center mb-2">
         <h1 className="text-lg font-bold ">Developed with ❤️ by</h1>
         <Omkar />
-      </footer>
+      </footer> */}
     </main>
   );
 }

@@ -1,41 +1,25 @@
 "use server";
-import Links from "@/models/links.model";
-import { connectToDatabase } from "@/db";
 import { auth } from "@/auth";
+import { connectToDatabase } from "@/db";
+import Links from "@/models/links.model";
+import { Session } from "next-auth";
 
-export const getData = async () => {
+export const getBrandLink = async (params: any) => {
   connectToDatabase();
 
-  const data = await Links.find();
+  const { name } = params;
+  console.log(name);
 
-  return data;
+  const data = await Links.findOne({ name: name });
+  console.log(data);
+
+  return data._doc;
 };
 
-export const getLink = async (params: any) => {
+export const uploadBrandedLink = async (params: any) => {
   connectToDatabase();
-
-  const { id } = params;
-
-  const data = await Links.findById(id);
-  // console.log(data);
-  const responseObject = {
-    platform: data.platform || "generic",
-    name: data.name || null,
-    originalUrl: data.originalUrl,
-    androidIntentUrl: data.androidIntentUrl,
-    iosUrl: data.iosUrl,
-    fallbackUrl: data.fallbackUrl,
-    defaultBrowserUrl: data.defaultBrowserUrl || null, // Include defaultBrowserUrl if available
-    userId: data.userId || null,
-  };
-
-  return responseObject;
-};
-
-export const uploadData = async (params: any) => {
-  connectToDatabase();
-  const session = await auth();
-  const { link } = params;
+  const session: Session | null = await auth();
+  const { link, name } = params;
   const isValidURL = (link: string) => {
     try {
       new URL(link);
@@ -114,34 +98,78 @@ export const uploadData = async (params: any) => {
 
   const data = {
     platform: platform || "generic",
-    name: null,
+    name: name,
     originalUrl: link,
     androidIntentUrl: androidIntentUrl,
     iosUrl: iosUrl,
     fallbackUrl: fallbackUrl,
-    userId: session.userId || null,
+    userId: session.userId,
   };
 
-  if (checkURL) {
-    const upload = await Links.create(data);
+  try {
+    const nameCheck = await getName(name);
 
-    console.log(upload._doc);
+    if (nameCheck) {
+      throw new Error("Username already taken! Try new one");
+    } else {
+      if (checkURL) {
+        const upload = await Links.create(data);
 
-    return { upload: upload._doc, isValidURL: checkURL };
-  } else {
-    return { upload: null, IsValidURL: checkURL };
+        console.log(upload._doc);
+
+        return { upload: upload._doc, isValidURL: checkURL };
+      } else {
+        return { upload: null, IsValidURL: checkURL };
+      }
+    }
+  } catch (error: any) {
+    console.error(error);
+    throw new Error(error.message);
   }
 };
 
-export const getUserLinks = async () => {
+export const getUserBrandedLinks = async () => {
   connectToDatabase();
   const session = await auth();
   const userId: any = session?.user?.id;
 
   const data = await Links.find().lean();
 
-  const filteredData: any = data.filter((item) => item.userId === userId);
+  let filteredData: any = data.filter(
+    (item) => item.userId === userId && item.name
+  );
+  // filteredData = filteredData.filter((item) => item.name !== null);
   // console.log(filteredData);
 
   return filteredData;
+};
+
+export const getName = async (name: any) => {
+  console.log(name);
+
+  try {
+    const data = await Links.findOne({ name: name }).lean();
+    if (data) {
+      console.log("Name Found");
+      console.log({ "Found Data": data });
+      return data;
+    } else {
+      console.log("Name Not Found");
+      return null;
+    }
+  } catch (error) {
+    console.error("Error fetching Name:", error);
+    throw new Error("Error fetching Name");
+  }
+};
+
+export const deleteBrandedLink = async (params: any) => {
+  const { id } = params;
+
+  try {
+    const data = await Links.findByIdAndDelete({ _id: id }).lean();
+    return { message: "success", data: data };
+  } catch (error) {
+    console.log(error);
+  }
 };

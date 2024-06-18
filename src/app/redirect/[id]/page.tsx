@@ -7,7 +7,39 @@ import Link from "next/link";
 const RedirectionPage = ({ params }: { params: { id: string } }) => {
   const { id }: any = params;
   const [link, setLink] = useState<string | null>(null); // Set initial state to null
-  const [resData, setResData] = useState(null);
+  const [resData, setResData] = useState<any>(null);
+
+  // useEffect(() => {
+  //   const getData = async () => {
+  //     try {
+  //       const res = await getLink({ id });
+  //       console.log(res);
+
+  //       setResData(res);
+  //       setLink(res.link);
+  //       if (/Android/i.test(window.navigator.userAgent)) {
+  //         console.log("Redirecting to Android intent URL");
+  //         window.location.href = res.androidIntentUrl;
+  //         setTimeout(() => {
+  //           window.location.href = res.fallbackUrl;
+  //         }, 1000);
+  //       } else if (/iPhone|iPad|iPod/i.test(window.navigator.userAgent)) {
+  //         console.log("Redirecting to iOS URL");
+  //         window.location.href = res.iosUrl;
+  //         setTimeout(() => {
+  //           window.location.href = res.fallbackUrl;
+  //         }, 1000);
+  //       } else {
+  //         console.log("Redirecting to fallback URL");
+  //         window.location.href = res.fallbackUrl;
+  //       }
+  //     } catch (error) {
+  //       console.error("Error fetching link:", error);
+  //       // Handle error accordingly, maybe set an error state
+  //     }
+  //   };
+  //   getData();
+  // }, [id]);
 
   useEffect(() => {
     const getData = async () => {
@@ -16,22 +48,26 @@ const RedirectionPage = ({ params }: { params: { id: string } }) => {
         console.log(res);
 
         setResData(res);
-        setLink(res.link);
-        if (/Android/i.test(window.navigator.userAgent)) {
+        setLink(res.originalUrl);
+
+        if (res.androidIntentUrl) {
           console.log("Redirecting to Android intent URL");
           window.location.href = res.androidIntentUrl;
           setTimeout(() => {
             window.location.href = res.fallbackUrl;
           }, 1000);
-        } else if (/iPhone|iPad|iPod/i.test(window.navigator.userAgent)) {
+        } else if (res.iosUrl) {
           console.log("Redirecting to iOS URL");
           window.location.href = res.iosUrl;
           setTimeout(() => {
             window.location.href = res.fallbackUrl;
           }, 1000);
+        } else if (res.defaultBrowserUrl) {
+          console.log("Opening in default browser");
+          window.open(res.defaultBrowserUrl, "_blank"); // Open in new tab
         } else {
-          console.log("Redirecting to fallback URL");
-          window.location.href = res.fallbackUrl;
+          console.log("Unsupported URL or no mapping found");
+          // Handle case where no mapping or default URL is available
         }
       } catch (error) {
         console.error("Error fetching link:", error);
@@ -40,7 +76,6 @@ const RedirectionPage = ({ params }: { params: { id: string } }) => {
     };
     getData();
   }, [id]);
-
   return (
     <div className="mt-5">
       <h1 className="text-center text-3xl font-bold text-green-400">
@@ -48,10 +83,8 @@ const RedirectionPage = ({ params }: { params: { id: string } }) => {
       </h1>
       <div className="btn flex justify-center mt-10">
         {link ? (
-          <Link href={link} passHref>
-            <a target="_self" rel=" noopener noreferrer">
-              <Button>Redirect</Button>
-            </a>
+          <Link href={link} target="_blank" rel=" noopener noreferrer">
+            <Button>Redirect</Button>
           </Link>
         ) : (
           <div className="flex justify-center items-center h-24">

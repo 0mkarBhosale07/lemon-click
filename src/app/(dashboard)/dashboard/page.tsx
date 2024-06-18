@@ -3,7 +3,12 @@ import Navbar from "@/components/Navbar";
 import React from "react";
 import { DashboardNavigationMenu } from "../dashboard-components/DashboardNav";
 import NotAuth from "../dashboard-components/NotAuth";
+import LinksTabel from "../dashboard-components/LinksTabel";
+import { Metadata } from "next";
 
+export const metadata: Metadata = {
+  title: "Dashboard",
+};
 const page = async () => {
   const session = await auth();
   if (!session) return <NotAuth />;
@@ -15,9 +20,11 @@ const page = async () => {
       <nav className="flex justify-center mt-2">
         <DashboardNavigationMenu />
       </nav>
-      <div className="mt-20 text-center">
-        <h1>Beta version se aur kya expectations hai bhai!!! 😂😅</h1>
-        <h1>Rooling Out Soon!!</h1>
+      <div className="mt-10 text-center">
+        <h1 className="text-2xl font-bold">Dashboard</h1>
+      </div>
+      <div className="linksTabel">
+        <LinksTabel />
       </div>
     </div>
   );

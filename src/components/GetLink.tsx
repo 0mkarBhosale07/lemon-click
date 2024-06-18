@@ -32,7 +32,7 @@ const GetLink = () => {
       if (res.upload == null) {
         setValidLink(res.isValidURL);
       } else {
-        setURL(`${serverURL}/${res.upload._id}`);
+        setURL(`${serverURL}/redirect/${res.upload._id}`);
         setValidLink(res.isValidURL);
         setIsVisible(true);
       }

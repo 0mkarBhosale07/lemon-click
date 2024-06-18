@@ -11,6 +11,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer";
 
 const page = () => {
   return (
@@ -51,6 +52,9 @@ const page = () => {
             </p>
           </Card>
         </div>
+      </div>
+      <div className="my-2">
+        <Footer />
       </div>
     </div>
   );
