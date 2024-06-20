@@ -95,9 +95,13 @@ const Checkout = () => {
     }
   };
 
-  let tax = orderAmount * 0.02;
+  let tax = 0;
   let totalAmount = orderAmount - discount;
-  totalAmount += tax;
+  if (totalAmount != 0) {
+    tax = orderAmount * 0.02;
+
+    totalAmount += tax;
+  }
 
   return (
     <div className="w-full max-w-4xl mx-auto py-12 px-4 md:px-6">
@@ -194,7 +198,9 @@ const Checkout = () => {
                 )}
                 <div className="flex items-center justify-between">
                   <span>Platform Fees 2%</span>
-                  <span className="font-medium">₹{tax}</span>
+                  <span className="font-medium">
+                    ₹{totalAmount == 0 ? 0 : tax}
+                  </span>
                 </div>
 
                 <Separator />
