@@ -2,6 +2,8 @@
 import Users from "@/models/users.model";
 import { auth } from "@/auth";
 import { v2 as cloudinary } from "cloudinary";
+import { connectToDatabase } from "@/db";
+import { UserDetailsType } from "@/types";
 
 cloudinary.config({
   cloud_name: process.env.CLOUDINARY_NAME,
@@ -11,16 +13,18 @@ cloudinary.config({
 });
 
 export const getUserDetails = async () => {
+  connectToDatabase();
   const session = await auth();
   const id: any = session?.user?.id;
   console.log(id);
 
-  const data = await Users.findOne({ _id: id }).lean();
+  const data: UserDetailsType | null = await Users.findOne({ _id: id }).lean();
   console.log(data);
   return data;
 };
 
 export const setUsername = async (params: any) => {
+  connectToDatabase();
   const session = await auth();
   const id = session?.user?.id;
 
@@ -52,6 +56,7 @@ export const setUsername = async (params: any) => {
 };
 
 export const getUsername = async (username: any) => {
+  connectToDatabase();
   console.log(username);
 
   try {
@@ -71,6 +76,7 @@ export const getUsername = async (username: any) => {
 };
 
 export const updateName = async (params: any) => {
+  connectToDatabase();
   const session = await auth();
   const id = session?.user?.id;
 

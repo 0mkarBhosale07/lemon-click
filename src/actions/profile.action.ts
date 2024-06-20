@@ -3,8 +3,10 @@ import Profiles from "@/models/profile.model";
 import { auth } from "@/auth";
 import { getUserDetails } from "./users.action";
 import { uploadData } from "./links.action";
+import { connectToDatabase } from "@/db";
 
 export const setProfileLink = async (params: any) => {
+  connectToDatabase();
   const { link, tag, title } = params;
   const session = await auth();
   const id = session?.user?.id;
@@ -49,6 +51,7 @@ export const setProfileLink = async (params: any) => {
 };
 
 export const getProfileLinks = async () => {
+  connectToDatabase();
   const session = await auth();
   const id = session?.user?.id;
 
@@ -58,6 +61,7 @@ export const getProfileLinks = async () => {
   return data;
 };
 export const getUSerProfile = async (params: any) => {
+  connectToDatabase();
   const { username } = params;
   console.log(username);
 
@@ -68,6 +72,7 @@ export const getUSerProfile = async (params: any) => {
 };
 
 export const updateBio = async (params: any) => {
+  connectToDatabase();
   const { bio, name, displayImage } = params;
   const session = await auth();
   const id = session?.user?.id;
@@ -83,6 +88,7 @@ export const updateBio = async (params: any) => {
 };
 
 export const deleteProfileLink = async (params: any) => {
+  connectToDatabase();
   const session = await auth();
   const id = session?.user?.id;
   const { linkId } = params;

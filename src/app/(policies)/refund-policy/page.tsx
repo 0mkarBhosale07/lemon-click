@@ -17,7 +17,7 @@ const RefundPolicy = () => {
       <div className="mt-10 text-center">
         <h1 className="text-2xl font-bold">Refund Policy</h1>
       </div>
-      <main className="container mx-auto px-4 py-10">
+      <main className="container mx-auto px-4 py-10 text-white">
         <section className="bg-gray-900 shadow-lg rounded-lg p-6 mb-6">
           <h2 className="text-2xl font-bold mb-4">1. Introduction</h2>
           <p className=" leading-relaxed">

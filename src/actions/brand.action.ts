@@ -145,6 +145,7 @@ export const getUserBrandedLinks = async () => {
 };
 
 export const getName = async (name: any) => {
+  connectToDatabase();
   console.log(name);
 
   try {
@@ -164,6 +165,7 @@ export const getName = async (name: any) => {
 };
 
 export const deleteBrandedLink = async (params: any) => {
+  connectToDatabase();
   const { id } = params;
 
   try {

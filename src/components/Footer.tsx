@@ -81,9 +81,12 @@ const Footer = () => {
         <div className="flex flex-col items-start gap-2">
           <h4 className="text-lg font-semibold">Contact</h4>
           <p className="text-gray-500 dark:text-gray-400">
-            Kolhapur, Maharashtra, India
+            Building-64, Bypass Road, Jaysingpur, Dist- Kolhapur, Maharashtra
           </p>
-          <p className="text-gray-500 dark:text-gray-400">+91 7248965484</p>
+          <p className="text-gray-500 dark:text-gray-400">416101</p>
+          <p className="text-gray-500 dark:text-gray-400 mt-2">
+            +91 7248965484
+          </p>
           {/* <p className="text-gray-500 dark:text-gray-400">(555) 555-5555</p> */}
           {/* <Version /> */}
         </div>
