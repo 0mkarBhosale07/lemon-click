@@ -18,6 +18,8 @@ import { toast } from "sonner";
 const BrandLinksTabel = () => {
   const [links, setLinks] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 5;
 
   const handelDelete = async (id: any) => {
     console.log(id);
@@ -45,6 +47,18 @@ const BrandLinksTabel = () => {
 
     fetchData();
   }, []);
+
+  const totalPages = Math.ceil(links.length / itemsPerPage);
+
+  const handlePageChange = (newPage: any) => {
+    if (newPage < 1 || newPage > totalPages) return;
+    setCurrentPage(newPage);
+  };
+
+  const getCurrentPageLinks = () => {
+    const startIndex = (currentPage - 1) * itemsPerPage;
+    return links.slice(startIndex, startIndex + itemsPerPage);
+  };
 
   if (loading) {
     return (
@@ -106,8 +120,25 @@ const BrandLinksTabel = () => {
         <TableFooter>
           <TableRow>
             <TableCell colSpan={2}>Total Created Links</TableCell>
-            <TableCell colSpan={4} className="text-xl font-bold text-left">
+            <TableCell colSpan={1} className="text-xl font-bold text-left">
               {links.length}
+            </TableCell>
+            <TableCell colSpan={3} className="flex gap-2 items-center">
+              <Button
+                disabled={currentPage === 1}
+                onClick={() => handlePageChange(currentPage - 1)}
+              >
+                Previous
+              </Button>
+              <span>
+                Page {currentPage} of {totalPages}
+              </span>
+              <Button
+                disabled={currentPage === totalPages}
+                onClick={() => handlePageChange(currentPage + 1)}
+              >
+                Next
+              </Button>
             </TableCell>
           </TableRow>
         </TableFooter>

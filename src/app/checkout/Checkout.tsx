@@ -13,6 +13,7 @@ import { Separator } from "@/components/ui/separator";
 import { applyCouponCode } from "@/actions/admin.actions";
 import { toast } from "sonner";
 import { FaXmark } from "react-icons/fa6";
+import Link from "next/link";
 
 const Checkout = () => {
   const [couponCode, setCouponCode] = useState("");
@@ -210,7 +211,9 @@ const Checkout = () => {
                 </div>
               </CardContent>
               <CardFooter>
-                <Button className="w-full">Continue to Payment</Button>
+                <Link href="https://rzp.io/l/JhPHhP99 " target="_blank">
+                  <Button className="w-full">Continue to Payment</Button>
+                </Link>
               </CardFooter>
             </Card>
           </div>

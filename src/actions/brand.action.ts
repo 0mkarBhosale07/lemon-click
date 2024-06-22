@@ -10,7 +10,12 @@ export const getBrandLink = async (params: any) => {
   const { name } = params;
   console.log(name);
 
-  const data = await Links.findOne({ name: name });
+  const data = await Links.findOneAndUpdate(
+    { name: name },
+    { $inc: { clickCount: 0.5 } }, // Increment click count by 1
+    { new: true }
+  );
+
   console.log(data);
 
   return data._doc;

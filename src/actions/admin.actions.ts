@@ -1,6 +1,9 @@
 "use server";
 import { connectToDatabase } from "@/db";
 import Coupon from "@/models/coupon.model";
+import Webhook from "@/models/webhook.model";
+import axios from "axios";
+import mongoose from "mongoose";
 
 export const createCouponCode = async (params: any) => {
   connectToDatabase();
@@ -126,5 +129,126 @@ export const applyCouponCode = async (params: any) => {
   } catch (err) {
     console.log(err);
     return { message: "An error occurred while applying the coupon" };
+  }
+};
+
+export const createWebhook = async (params: any) => {
+  connectToDatabase();
+
+  const { url, name, channel } = params;
+  try {
+    const data = await Webhook.create({
+      url,
+      name,
+      channel,
+    });
+    return { message: "Webhook added successfully", data: data };
+  } catch (err: any) {
+    console.log(err);
+    return { message: err._message };
+  }
+};
+
+export const getAllWebhooks = async () => {
+  // console.log("Called");
+
+  connectToDatabase();
+  try {
+    const data = await Webhook.find();
+    return data;
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+export const getWebhook = async (name: string) => {
+  connectToDatabase();
+  try {
+    const data = await Webhook.findOne({ name: name });
+    console.log(data);
+
+    return data;
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+export const sendWebhookMessage = async (params: any) => {
+  connectToDatabase();
+  const { name, embeds } = params;
+
+  const webhook = await getWebhook(name);
+  if (!webhook) {
+    throw new Error("Webhook not found");
+  }
+
+  const payload = {
+    embeds: embeds.map((embed: any) => ({
+      author: {
+        name: embed.author.name,
+        url: embed.author.url,
+        icon_url: embed.author.iconUrl,
+      },
+      title: embed.body.title,
+      description: embed.body.description,
+      url: embed.body.url,
+      color: parseInt(embed.body.color.substring(1), 16),
+      image: {
+        url: embed.image.imageUrl,
+        thumbnail: {
+          url: embed.image.thumbnailUrl,
+        },
+      },
+      footer: {
+        text: embed.footer.text,
+        icon_url: embed.footer.iconUrl,
+        timestamp: embed.footer.timestamp,
+      },
+      fields: embed.fields.map((field: any) => ({
+        name: field.name,
+        value: field.value,
+        inline: field.inline,
+      })),
+    })),
+  };
+
+  console.log("Payload:", payload);
+
+  try {
+    const response = await axios.post(webhook.url, payload, {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    return { data: response.data, message: "Webhook sent successfully!" };
+  } catch (error: any) {
+    console.error("Error sending message to Discord:", error.response.data);
+    throw error;
+  }
+};
+
+export const deleteWebhook = async (id: any) => {
+  connectToDatabase();
+
+  // Check if id is a valid ObjectId
+  if (!mongoose.Types.ObjectId.isValid(id)) {
+    return { message: "Invalid Webhook ID" };
+  }
+
+  try {
+    // Convert the id to an ObjectId
+    const objectId = new mongoose.Types.ObjectId(id);
+
+    // Find and delete the webhook
+    const data = await Webhook.findByIdAndDelete(objectId);
+
+    if (!data) {
+      return { message: "Webhook not found" };
+    }
+
+    return { data: data, message: "Webhook Deleted" };
+  } catch (err) {
+    console.error(err);
+    return { message: "Error deleting webhook" };
   }
 };

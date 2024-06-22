@@ -135,4 +135,10 @@ export const navItems: NavItem[] = [
     icon: "coupon",
     label: "Coupon-Code",
   },
+  {
+    title: "Webhooks",
+    href: "/admin/webhook",
+    icon: "media",
+    label: "Webhook",
+  },
 ];

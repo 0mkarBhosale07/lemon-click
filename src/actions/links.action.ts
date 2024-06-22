@@ -12,24 +12,43 @@ export const getData = async () => {
 };
 
 export const getLink = async (params: any) => {
-  connectToDatabase();
+  await connectToDatabase();
 
   const { id } = params;
+  console.log(`Fetching link with ID: ${id}`);
 
-  const data = await Links.findById(id);
-  // console.log(data);
-  const responseObject = {
-    platform: data.platform || "generic",
-    name: data.name || null,
-    originalUrl: data.originalUrl,
-    androidIntentUrl: data.androidIntentUrl,
-    iosUrl: data.iosUrl,
-    fallbackUrl: data.fallbackUrl,
-    defaultBrowserUrl: data.defaultBrowserUrl || null, // Include defaultBrowserUrl if available
-    userId: data.userId || null,
-  };
+  try {
+    // Find the link by ID and increment the click count
+    const data = await Links.findByIdAndUpdate(
+      id,
+      { $inc: { clickCount: 0.5 } }, // Increment click count by 1
+      { new: true } // Return the updated document
+    );
 
-  return responseObject;
+    if (!data) {
+      console.error(`Link not found for ID: ${id}`);
+      throw new Error("Link not found");
+    }
+
+    console.log(`Updated click count: ${data.clickCount}`);
+
+    const responseObject = {
+      platform: data.platform || "generic",
+      name: data.name || null,
+      originalUrl: data.originalUrl,
+      androidIntentUrl: data.androidIntentUrl,
+      iosUrl: data.iosUrl,
+      fallbackUrl: data.fallbackUrl,
+      defaultBrowserUrl: data.defaultBrowserUrl || null,
+      userId: data.userId || null,
+      clickCount: data.clickCount, // Include click count in the response
+    };
+
+    return responseObject;
+  } catch (error: any) {
+    console.error(`Error updating link click count: ${error.message}`);
+    throw error;
+  }
 };
 
 export const uploadData = async (params: any) => {
