@@ -73,47 +73,47 @@ export const uploadData = async (params: any) => {
   const platformMappings: any = {
     "youtube.com": {
       androidIntentUrl: `intent://${hostname}${path}#Intent;scheme=https;package=com.google.android.youtube;end;`,
-      iosUrl: `vnd.youtube:///${path}`,
+      iosUrl: `vnd.youtube:/${path}`,
     },
     "instagram.com": {
       androidIntentUrl: `intent://${hostname}${path}#Intent;scheme=https;package=com.instagram.android;end;`,
-      iosUrl: `instagram://${path}`,
+      iosUrl: `instagram:/${path}`,
     },
     "twitter.com": {
       androidIntentUrl: `intent://${hostname}${path}#Intent;scheme=https;package=com.twitter.android;end;`,
-      iosUrl: `twitter://${path}`,
+      iosUrl: `twitter:/${path}`,
     },
     "facebook.com": {
       androidIntentUrl: `intent://${hostname}${path}#Intent;scheme=https;package=com.facebook.katana;end;`,
-      iosUrl: `fb://${path}`,
+      iosUrl: `fb:/${path}`,
     },
     "open.spotify.com": {
       androidIntentUrl: `intent://${hostname}${path}#Intent;scheme=https;package=com.spotify.music;end;`,
-      iosUrl: `spotify://${path}`,
+      iosUrl: `spotify:/${path}`,
     },
     "netflix.com": {
       androidIntentUrl: `intent://${hostname}${path}#Intent;scheme=https;package=com.netflix.mediaclient;end;`,
-      iosUrl: `nflx://${path}`,
+      iosUrl: `nflx:/${path}`,
     },
     "disneyplus.com": {
       androidIntentUrl: `intent://${hostname}${path}#Intent;scheme=https;package=com.disney.disneyplus;end;`,
-      iosUrl: `disneyplus://${path}`,
+      iosUrl: `disneyplus:/${path}`,
     },
     "hotstar.com": {
       androidIntentUrl: `intent://${hostname}${path}#Intent;scheme=https;package=in.startv.hotstar;end;`,
-      iosUrl: `hotstar://${path}`,
+      iosUrl: `hotstar:/${path}`,
     },
     "youtu.be": {
       androidIntentUrl: `intent://{hostname}{path}#Intent;scheme=https;package=com.google.android.youtube;end;`,
-      iosUrl: `vnd.youtube://{path}`,
+      iosUrl: `vnd.youtube:/${path}`,
     },
     "vercel.com": {
       androidIntentUrl: `intent://${hostname}${path}#Intent;scheme=https;package=com.vercel;end;`,
-      iosUrl: `vercel://${path}`,
+      iosUrl: `vercel:/${path}`,
     },
     "github.com": {
       androidIntentUrl: `intent://${hostname}${path}#Intent;scheme=https;package=com.github.android;end;`,
-      iosUrl: `github://${path}`,
+      iosUrl: `github:/${path}`,
     },
   };
 

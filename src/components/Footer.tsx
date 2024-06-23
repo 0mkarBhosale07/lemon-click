@@ -95,6 +95,9 @@ const Footer = () => {
         <p className="text-gray-500 dark:text-gray-400 text-sm">
           &copy; {currentYear} Lemon Click. All rights reserved.
         </p>
+        <p className="text-gray-500 underline underline-offset-4 hover:cursor-pointer text-sm">
+          <Link href="/report-link">Report Link</Link>
+        </p>
         <p className="text-gray-500 dark:text-gray-400 text-sm">
           Developed with ❤️ by
           <Omkar />

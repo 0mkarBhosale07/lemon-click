@@ -4,6 +4,9 @@ import { auth } from "@/auth";
 import { v2 as cloudinary } from "cloudinary";
 import { connectToDatabase } from "@/db";
 import { UserDetailsType } from "@/types";
+import ReportLink from "@/models/reportLink.model";
+import { getWebhook } from "./admin.actions";
+import axios from "axios";
 
 cloudinary.config({
   cloud_name: process.env.CLOUDINARY_NAME,
@@ -98,5 +101,83 @@ export const updateName = async (params: any) => {
   } catch (error: any) {
     console.error(error);
     throw new Error(error.message);
+  }
+};
+
+export const reportLink = async (params: any) => {
+  connectToDatabase();
+
+  const { name, email, link, description } = params;
+
+  try {
+    const data: any = await ReportLink.create({
+      name,
+      email,
+      link,
+      description,
+    });
+
+    const webhook = await getWebhook("Reported Links");
+    if (!webhook) {
+      throw new Error("Webhook not found");
+    }
+
+    const payload = {
+      embeds: [
+        {
+          author: {
+            name: name,
+            icon_url:
+              "https://res.cloudinary.com/lemon-click/image/upload/v1719137590/aeeeq2bkjeywevrxnyxa.jpg",
+          },
+          title: "New Reported Link",
+          color: 15844367,
+          footer: {
+            text: "Lemon Click Web Bot",
+            icon_url:
+              "https://res.cloudinary.com/lemon-click/image/upload/v1719137698/lemonclick-profile/pfh0lgjiokb5dts8uyl8.png",
+          },
+          fields: [
+            {
+              name: "Name",
+              value: name,
+            },
+            {
+              name: "Description",
+              value: description,
+            },
+            {
+              name: "Link",
+              value: link,
+            },
+          ],
+        },
+      ],
+    };
+
+    console.log("Payload:", payload);
+    // console.log(data);
+    const response = await axios.post(
+      "https://discord.com/api/webhooks/1254377593549881435/yNTOCWkcI0VFWZfJtpXKLGdplcRV-sT5swurMw87LWnItOOkvpNUfKNyhjUrR5R0Fyxz",
+      payload,
+      {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
+    return {
+      message: "Report Submitted Successfully",
+      data: data,
+      status: 200,
+    };
+  } catch (error: any) {
+    console.log(error);
+
+    return {
+      message: "Error Reporting Link",
+      status: 500,
+      error: error.message,
+    };
   }
 };
