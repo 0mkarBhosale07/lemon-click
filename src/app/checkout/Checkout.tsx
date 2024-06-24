@@ -32,7 +32,7 @@ const Checkout = ({ name, email }: any) => {
       const orderData = await paymentHandler({ amount: totalAmount });
 
       const options: any = {
-        key: "rzp_test_CUjTqIpIAq5EK4", // Ensure this key is correctly set in your environment variables
+        key: process.env.RAZORPAY_API_ID, // Ensure this key is correctly set in your environment variables
         amount: orderData.amount, // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
         currency: "INR",
         name: "Lemon Click",
