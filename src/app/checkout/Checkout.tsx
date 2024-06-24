@@ -14,59 +14,75 @@ import { applyCouponCode } from "@/actions/admin.actions";
 import { toast } from "sonner";
 import { FaXmark } from "react-icons/fa6";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+import useRazorpay from "react-razorpay";
+import { paymentHandler } from "@/actions/payment.action";
 
-const Checkout = () => {
+const Checkout = ({ name, email }: any) => {
   const [couponCode, setCouponCode] = useState("");
   const [discount, setDiscount] = useState(0);
   const [orderAmount, setOrderAmount] = useState(19);
   // const [tax, setTax] = useState(0.02);
   const [applied, setApplied] = useState(false);
+  const router = useRouter();
+  const [Razorpay] = useRazorpay();
 
-  // const handlePayment = async () => {
-  //   const res = await fetch("/api/create-order", {
-  //     method: "POST",
-  //     headers: {
-  //       "Content-Type": "application/json",
-  //     },
-  //     body: JSON.stringify({
-  //       amount: orderAmount,
-  //       currency: "INR",
-  //       receipt: "receipt#1",
-  //     }),
-  //   });
+  const handlePayment = async () => {
+    try {
+      const orderData = await paymentHandler({ amount: totalAmount });
 
-  //   const order = await res.json();
+      const options: any = {
+        key: "rzp_test_CUjTqIpIAq5EK4", // Ensure this key is correctly set in your environment variables
+        amount: orderData.amount, // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
+        currency: "INR",
+        name: "Lemon Click",
+        description: "Test Transaction",
+        image:
+          "https://res.cloudinary.com/lemon-click/image/upload/v1719137698/lemonclick-profile/pfh0lgjiokb5dts8uyl8.png",
+        order_id: orderData.order_id, // Use the correct order ID property from the response
+        handler: function (response: any) {
+          // Redirect to success page with payment details
+          router.push(
+            `/checkout/success?razorpay_payment_id=${response.razorpay_payment_id}&razorpay_order_id=${response.razorpay_order_id}&amount=${orderData.amount}`
+          );
+        },
+        prefill: {
+          name: name,
+          email: email,
+          contact: "",
+        },
+        notes: {
+          address: "Lemon Click",
+        },
+        theme: {
+          color: "#EE4E4E",
+        },
+      };
 
-  //   const razorpayOptions = {
-  //     key: process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID,
-  //     amount: order.amount,
-  //     currency: order.currency,
-  //     name: "Your Company",
-  //     description: "Test Transaction",
-  //     order_id: order.id,
-  //     handler: function (response) {
-  //       router.push({
-  //         pathname: "/success",
-  //         query: {
-  //           transactionId: response.razorpay_payment_id,
-  //           amount: order.amount / 100,
-  //           currency: order.currency,
-  //         },
-  //       });
-  //     },
-  //     prefill: {
-  //       name: "John Doe",
-  //       email: "john.doe@example.com",
-  //       contact: "9999999999",
-  //     },
-  //     theme: {
-  //       color: "#3399cc",
-  //     },
-  //   };
+      const rzp1 = new Razorpay(options);
 
-  //   const rzp = new Razorpay(razorpayOptions);
-  //   rzp.open();
-  // };
+      rzp1.on("payment.failed", function (response: any) {
+        alert(response.error.code);
+        alert(response.error.description);
+        alert(response.error.source);
+        alert(response.error.step);
+        alert(response.error.reason);
+        alert(response.error.metadata.order_id);
+        alert(response.error.metadata.payment_id);
+      });
+
+      if (totalAmount === 0) {
+        router.push(
+          `/checkout/success?razorpay_payment_id=${"asfsdcdcdfdsd"}&razorpay_order_id=${"FREE PASS"}&amount=${0}`
+        );
+      } else {
+        rzp1.open();
+      }
+    } catch (error) {
+      console.error("Error handling payment:", error);
+      // Handle error scenario
+    }
+  };
 
   const handleRemoveCoupon = () => {
     setDiscount(0);
@@ -211,9 +227,9 @@ const Checkout = () => {
                 </div>
               </CardContent>
               <CardFooter>
-                <Link href="https://rzp.io/l/JhPHhP99 " target="_blank">
-                  <Button className="w-full">Continue to Payment</Button>
-                </Link>
+                <Button className="w-full" onClick={handlePayment}>
+                  Continue to Payment
+                </Button>
               </CardFooter>
             </Card>
           </div>

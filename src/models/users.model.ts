@@ -9,6 +9,7 @@ const usersSchema = new Schema(
     emailVerified: { type: String, required: true },
     username: { type: String, unique: true },
     creator_mode: { type: Boolean, default: false },
+    planExpiry: { type: Date },
   },
   {
     timestamps: true,
