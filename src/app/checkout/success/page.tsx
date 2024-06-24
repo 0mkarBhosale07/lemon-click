@@ -1,5 +1,6 @@
 "use client";
 import { useSearchParams } from "next/navigation";
+import { Suspense } from "react";
 import SuccessPage from "./SuccessPage";
 
 const Page = () => {
@@ -10,11 +11,13 @@ const Page = () => {
   const amount: any | null = searchParams.get("amount");
   return (
     <div>
-      <SuccessPage
-        razorpay_payment_id={razorpay_payment_id}
-        razorpay_order_id={razorpay_order_id}
-        amount={amount}
-      />
+      <Suspense fallback={<div>Loading...</div>}>
+        <SuccessPage
+          razorpay_payment_id={razorpay_payment_id}
+          razorpay_order_id={razorpay_order_id}
+          amount={amount}
+        />
+      </Suspense>
     </div>
   );
 };
