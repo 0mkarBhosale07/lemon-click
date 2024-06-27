@@ -24,3 +24,10 @@ export const getUserCount = async () => {
     throw new Error("Failed to get count");
   }
 };
+
+export const getStats = async () => {
+  try {
+  } catch {
+    console.log("Error");
+  }
+};
