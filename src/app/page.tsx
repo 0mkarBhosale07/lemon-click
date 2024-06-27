@@ -26,7 +26,7 @@ export default function Home() {
         <div>
           <h1 className="text-3xl lg:text-5xl font-bold bg-gradient-to-r from-blue-600  to-indigo-400 inline-block text-transparent bg-clip-text">
             <span className={`${pascifico.className} leading-relaxed`}>
-              Create Your
+              Create You&apos;r
             </span>
           </h1>
         </div>
