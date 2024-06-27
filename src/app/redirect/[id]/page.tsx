@@ -26,7 +26,7 @@ const RedirectionPage = ({ params }: { params: { id: string } }) => {
           }, 1000);
         } else if (res.iosUrl) {
           console.log("Redirecting to iOS URL");
-          window.location.href = res.iosUrl; // ios issue!
+          window.location.href = res.originalUrl; // ios issue!
           setTimeout(() => {
             window.location.href = res.fallbackUrl;
           }, 1000);
@@ -52,9 +52,11 @@ const RedirectionPage = ({ params }: { params: { id: string } }) => {
       </h1>
       <div className="btn flex justify-center mt-10">
         {link ? (
-          <Link href={link} target="_blank" rel="noopener noreferrer">
-            <Button>Redirect</Button>
-          </Link>
+          <Button>
+            <Link href={link} target="_blank" rel="noopener noreferrer">
+              Redirect
+            </Link>
+          </Button>
         ) : (
           <div className="flex justify-center items-center h-24">
             <div className="w-8 h-8 border-4 border-t-4 border-t-blue-500 border-blue-200 rounded-full animate-spin"></div>
