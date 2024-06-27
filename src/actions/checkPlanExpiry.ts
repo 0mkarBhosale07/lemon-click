@@ -2,6 +2,8 @@ import { connectToDatabase } from "@/db";
 import Users from "@/models/users.model";
 
 const checkAndUpdatePlanExpiry = async () => {
+  // console.log("Called!");
+
   await connectToDatabase();
   const currentDate = new Date();
   const users = await Users.find({ planExpiry: { $lte: currentDate } });

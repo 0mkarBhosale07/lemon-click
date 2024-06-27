@@ -9,16 +9,25 @@ import AppSupport from "@/components/AppSupport";
 import Count from "@/components/Count";
 import { create } from "zustand";
 import Footer from "@/components/Footer";
+import { Playfair_Display } from "next/font/google";
+import { pascifico } from "@/fonts";
 
 export default function Home() {
   return (
     <main className="lg:px-10 px-2">
       <Navbar />
-
+      {/* <div className="absolute dark:hidden top-0 z-[-2] h-screen w-screen rotate-180 transform bg-[radial-gradient(60%_120%_at_50%_50%,hsla(0,0%,100%,0)_0,rgba(252,205,238,.5)_100%)]"></div> */}
+      {/* <div className="dark:relative h-full w-screen bg-slate-950">
+        <div className="absolute bottom-0 left-[-20%] right-0 top-[-10%] h-[500px] w-[500px] rounded-full bg-[radial-gradient(circle_farthest-side,rgba(255,0,182,.15),rgba(255,255,255,0))]"></div>
+        <div className="absolute bottom-0 right-[-20%] top-[-10%] h-[500px] w-[500px] rounded-full bg-[radial-gradient(circle_farthest-side,rgba(255,0,182,.15),rgba(255,255,255,0))]"></div>
+      </div> */}
+      {/* UI update */}
       <div className="hero-1 text-center mt-14 md:mt-32">
         <div>
           <h1 className="text-3xl lg:text-5xl font-bold bg-gradient-to-r from-blue-600  to-indigo-400 inline-block text-transparent bg-clip-text">
-            Create Your
+            <span className={`${pascifico.className} leading-relaxed`}>
+              Create Your
+            </span>
           </h1>
         </div>
         <div className="mt-2">
@@ -28,7 +37,9 @@ export default function Home() {
         </div>
         <div className="mt-4">
           <h1 className="text-3xl lg:text-5xl font-bold bg-gradient-to-r from-blue-600  to-indigo-400 inline-block text-transparent bg-clip-text">
-            Links Effortlessly!
+            <span className={`${pascifico.className} leading-loose`}>
+              Links Effortlessly!
+            </span>
           </h1>
         </div>
         <div className="para mt-5 md:mt-10 px-5 md:w-[600px] mx-auto ">

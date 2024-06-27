@@ -1,6 +1,8 @@
 "use client";
 import { getUserDetails } from "@/actions/users.action";
 import React, { useEffect, useState } from "react";
+import CreatorLinkTable from "./CreatorTable";
+import CreateCreatorLink from "./CreateCreatorLink";
 
 const CreatorMode = () => {
   const [data, setData] = useState<any>();
@@ -32,10 +34,21 @@ const CreatorMode = () => {
 
   return (
     <div>
-      {data.emailVerified == null ? (
-        <div className="text-center">Please Purches The Plan</div>
+      {data.creator_mode === false ? (
+        <div className="text-center mt-10 font-bold">
+          Please buy the creator mode subscription.
+        </div>
       ) : (
-        <div>You can use creator mode</div>
+        <div className="text-center mt-10 font-bold">
+          <main className="mt-10">
+            <div className="create flex justify-center my-10">
+              <CreateCreatorLink />
+            </div>
+            <div className="tables">
+              <CreatorLinkTable />
+            </div>
+          </main>
+        </div>
       )}
     </div>
   );

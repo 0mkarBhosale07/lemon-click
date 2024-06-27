@@ -7,8 +7,11 @@ import clientPromise from "./lib/db";
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
   adapter: MongoDBAdapter(clientPromise),
+
   providers: [
-    Google,
+    Google({
+      allowDangerousEmailAccountLinking: true, // Google Signin issue
+    }),
     // EmailProvider({
     //   server: {
     //     host: process.env.EMAIL_SERVER_HOST,

@@ -38,7 +38,7 @@ export const addPayment = async (params: any) => {
   const id = session?.user?.id;
   const { amount, paymentId, orderId } = params;
 
-  console.log({ amount, paymentId, orderId });
+  // console.log({ amount, paymentId, orderId });
 
   try {
     const data = await Payment.create({

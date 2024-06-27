@@ -22,7 +22,7 @@ export function Omkar() {
             <AvatarFallback>VC</AvatarFallback>
           </Avatar>
           <div className="space-y-1">
-            <Link href="https://instagram.com/techomkar">
+            <Link href="/@omkarbhosale">
               <h4 className="text-sm font-semibold">Omkar Bhosale</h4>
             </Link>
             <p className="text-sm">

@@ -29,6 +29,14 @@ const Checkout = ({ name, email }: any) => {
 
   const handlePayment = async () => {
     try {
+      if (totalAmount === 0) {
+        router.push(
+          `/checkout/success?razorpay_payment_id=${
+            "free_payment_" + Date.now()
+          }&razorpay_order_id=${"free_pass_" + Date.now()}&amount=${0}`
+        );
+        return;
+      }
       const orderData = await paymentHandler({ amount: totalAmount });
 
       const options: any = {
@@ -71,11 +79,7 @@ const Checkout = ({ name, email }: any) => {
         alert(response.error.metadata.payment_id);
       });
 
-      if (totalAmount === 0) {
-        router.push(
-          `/checkout/success?razorpay_payment_id=${"asfsdcdcdfdsd"}&razorpay_order_id=${"FREE PASS"}&amount=${0}`
-        );
-      } else {
+      if (totalAmount !== 0) {
         rzp1.open();
       }
     } catch (error) {

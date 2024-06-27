@@ -10,6 +10,8 @@ const linkSchema = new Schema(
     iosUrl: { type: String },
     fallbackUrl: { type: String, required: true },
     userId: { type: String, required: true },
+    username: { type: String, default: null },
+    creator_link: { type: Boolean, default: false },
     clickCount: { type: Number, default: 0 },
   },
   {
