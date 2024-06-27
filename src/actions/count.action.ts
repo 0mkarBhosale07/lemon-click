@@ -27,6 +27,10 @@ export const getUserCount = async () => {
 
 export const getStats = async () => {
   try {
+    await connectToDatabase();
+    const linkCount = await Links.countDocuments({});
+    const userCount = await Users.countDocuments({});
+    return { linkCount, userCount };
   } catch {
     console.log("Error");
   }
