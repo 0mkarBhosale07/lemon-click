@@ -3,8 +3,12 @@ import React from "react";
 import { DashboardNavigationMenu } from "../../dashboard-components/DashboardNav";
 import InputFiled from "./InputFiled";
 import ProfileLinksTable from "./ProfileLinksTable";
+import { auth } from "@/auth";
+import NotAuth from "../../dashboard-components/NotAuth";
 
-const page = () => {
+const page = async () => {
+  const session: any = await auth();
+  if (!session) return <NotAuth />;
   return (
     <div className="mt-5">
       <div className="navbar">

@@ -3,8 +3,12 @@ import React, { useState, useEffect } from "react";
 import { DashboardNavigationMenu } from "../../dashboard-components/DashboardNav";
 import { getUserDetails } from "@/actions/users.action";
 import Account from "../../dashboard-components/Account";
+import { auth } from "@/auth";
+import NotAuth from "../../dashboard-components/NotAuth";
 
-const AccountPage = () => {
+const AccountPage = async () => {
+  const session: any = await auth();
+  if (!session) return <NotAuth />;
   return (
     <div className="mt-5">
       <div className="navbar">

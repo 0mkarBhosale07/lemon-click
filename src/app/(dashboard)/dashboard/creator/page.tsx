@@ -2,8 +2,12 @@ import Navbar from "@/components/Navbar";
 import React from "react";
 import { DashboardNavigationMenu } from "../../dashboard-components/DashboardNav";
 import CreatorMode from "./creatorMode";
+import NotAuth from "../../dashboard-components/NotAuth";
+import { auth } from "@/auth";
 
-const CreatorModeDashboard = () => {
+const CreatorModeDashboard = async () => {
+  const session: any = await auth();
+  if (!session) return <NotAuth />;
   return (
     <div className="mt-5">
       <div className="navbar">

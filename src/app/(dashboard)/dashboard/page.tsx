@@ -10,10 +10,10 @@ export const metadata: Metadata = {
   title: "Dashboard",
 };
 const page = async () => {
-  // const session: any = await auth();
+  const session: any = await auth();
   // console.log(session.user?.emailVerified);
 
-  // if (!session) return <NotAuth />;
+  if (!session) return <NotAuth />;
   // if (session.user?.emailVerified === null) return <NotAuth />;
   return (
     <div className="mt-5">

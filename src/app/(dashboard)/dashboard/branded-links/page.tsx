@@ -3,8 +3,12 @@ import React from "react";
 import { DashboardNavigationMenu } from "../../dashboard-components/DashboardNav";
 import BrandLinksTabel from "./BrandedTable";
 import CreateLink from "./CreateLink";
+import { auth } from "@/auth";
+import NotAuth from "../../dashboard-components/NotAuth";
 
-const BrandedLinks = () => {
+const BrandedLinks = async () => {
+  const session: any = await auth();
+  if (!session) return <NotAuth />;
   return (
     <div className="mt-5">
       <div className="navbar">
