@@ -33,23 +33,24 @@ const CreatorMode = () => {
   }
 
   return (
-    <div>
-      {data.creator_mode === false ? (
-        <div className="text-center mt-10 font-bold">
-          Please buy the creator mode subscription.
+    // <div>
+    //   {data.creator_mode === false ? (
+    //     <div className="text-center mt-10 font-bold">
+    //       Please buy the creator mode subscription.
+    //     </div>
+    //   ) : (
+
+    //   )}
+    // </div>
+    <div className="text-center mt-10 font-bold">
+      <main className="mt-10">
+        <div className="create flex justify-center my-10">
+          <CreateCreatorLink />
         </div>
-      ) : (
-        <div className="text-center mt-10 font-bold">
-          <main className="mt-10">
-            <div className="create flex justify-center my-10">
-              <CreateCreatorLink />
-            </div>
-            <div className="tables">
-              <CreatorLinkTable />
-            </div>
-          </main>
+        <div className="tables">
+          <CreatorLinkTable />
         </div>
-      )}
+      </main>
     </div>
   );
 };

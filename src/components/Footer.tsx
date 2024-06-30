@@ -7,7 +7,7 @@ const Footer = () => {
   const currentYear = new Date().getFullYear();
   return (
     <footer className=" py-8 md:py-12 w-full">
-      <div className="container max-w-7xl grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8">
+      <div className="container max-w-7xl grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 gap-8">
         <div className="flex flex-col items-start gap-4">
           <Link href="#" className="flex items-center gap-2" prefetch={false}>
             <span className="text-lg font-bold">Lemon Click</span>
@@ -32,13 +32,13 @@ const Footer = () => {
           >
             About
           </Link>
-          <Link
+          {/* <Link
             href="/pricing"
             className="text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-50"
             prefetch={false}
           >
             Pricing
-          </Link>
+          </Link> */}
           <Link
             href="/dashboard"
             className="text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-50"
@@ -47,7 +47,7 @@ const Footer = () => {
             Dashboard
           </Link>
         </nav>
-        <nav className="grid gap-2">
+        {/* <nav className="grid gap-2">
           <h4 className="text-lg font-semibold">Policy Pages</h4>
           <Link
             href="/privacy-policy"
@@ -77,19 +77,7 @@ const Footer = () => {
           >
             Shipping Policy
           </Link>
-        </nav>
-        <div className="flex flex-col items-start gap-2">
-          <h4 className="text-lg font-semibold">Contact</h4>
-          <p className="text-gray-500 dark:text-gray-400">
-            Building-64, Bypass Road, Jaysingpur, Dist- Kolhapur, Maharashtra
-          </p>
-          <p className="text-gray-500 dark:text-gray-400">416101</p>
-          <p className="text-gray-500 dark:text-gray-400 mt-2">
-            +91 7248965484
-          </p>
-          {/* <p className="text-gray-500 dark:text-gray-400">(555) 555-5555</p> */}
-          {/* <Version /> */}
-        </div>
+        </nav> */}
       </div>
       <div className="container max-w-7xl mt-8 flex flex-col sm:flex-row items-center justify-between gap-4">
         <p className="text-gray-500 dark:text-gray-400 text-sm">
@@ -131,3 +119,18 @@ const Footer = () => {
 };
 
 export default Footer;
+
+{
+  /* <div className="flex flex-col items-start gap-2">
+          <h4 className="text-lg font-semibold">Contact</h4>
+          <p className="text-gray-500 dark:text-gray-400">
+            Building-64, Bypass Road, Jaysingpur, Dist- Kolhapur, Maharashtra
+          </p>
+          <p className="text-gray-500 dark:text-gray-400">416101</p>
+          <p className="text-gray-500 dark:text-gray-400 mt-2">
+            +91 7248965484
+          </p>
+          <p className="text-gray-500 dark:text-gray-400">(555) 555-5555</p>
+          <Version />
+        </div> */
+}
