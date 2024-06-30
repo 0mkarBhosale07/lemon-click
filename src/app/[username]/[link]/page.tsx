@@ -46,9 +46,9 @@ const CreatorPage = () => {
       </h1>
       <div className="btn flex justify-center mt-10">
         {link ? (
-          // <a href={link} target="_blank" rel="noopener noreferrer">
-          // </a>
-          <Button>Redirect</Button>
+          <a href={link} target="_blank" rel="noopener noreferrer">
+            <Button>Redirect</Button>
+          </a>
         ) : (
           <div className="flex justify-center items-center h-24">
             <div className="w-8 h-8 border-4 border-t-4 border-t-blue-500 border-blue-200 rounded-full animate-spin"></div>

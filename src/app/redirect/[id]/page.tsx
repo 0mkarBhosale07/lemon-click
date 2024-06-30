@@ -28,7 +28,7 @@ const RedirectionPage = ({ params }: { params: { id: string } }) => {
           console.log("Redirecting to iOS URL");
           window.location.href = res.originalUrl; // ios issue!
           setTimeout(() => {
-            window.location.href = res.fallbackUrl;
+            window.location.href = res.originalUrl;
           }, 1000);
         } else if (res.defaultBrowserUrl) {
           console.log("Opening in default browser");
